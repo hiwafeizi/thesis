@@ -3,10 +3,12 @@ from pathlib import Path
 
 # Define input and output directories
 input_dir = Path("ratings/draws/word_draws")
-output_dir = Path("data/processed")
+all_names_dir = Path("data/all_names")
+company_names_dir = Path("data/company_names")
 
-# Create output directory if it doesn't exist
-output_dir.mkdir(parents=True, exist_ok=True)
+# Create output directories if they don't exist
+all_names_dir.mkdir(parents=True, exist_ok=True)
+company_names_dir.mkdir(parents=True, exist_ok=True)
 
 # English column mapping
 column_mapping = {
@@ -34,6 +36,10 @@ def translate_filename(dutch_name):
     translated_parts = [filename_mapping.get(part, part) for part in parts]
     return "_".join(translated_parts)
 
+# Dictionaries to hold dataframes for each association
+dataframes_all_names = {}
+dataframes_company_names = {}
+
 # Loop over each parquet file and process it
 for file in input_dir.glob("*.parquet"):
     print(f"Processing: {file.name}")
@@ -47,8 +53,26 @@ for file in input_dir.glob("*.parquet"):
     # Translate filename to English
     new_file_stem = translate_filename(file.stem)
 
-    # Save as CSV to the output directory
-    csv_filename = output_dir / f"{new_file_stem}.csv"
-    df.write_csv(csv_filename)
+    # Extract association
+    association = new_file_stem.split("_")[-1]
 
-    print(f"✅ Saved to: {csv_filename}")
+    # Collect DataFrames
+    if association not in dataframes_all_names:
+        dataframes_all_names[association] = []
+    dataframes_all_names[association].append(df)
+
+    if "company_names" in new_file_stem:
+        if association not in dataframes_company_names:
+            dataframes_company_names[association] = []
+        dataframes_company_names[association].append(df)
+
+# Save combined CSV files for each association
+for association, dfs in dataframes_all_names.items():
+    combined_df = pl.concat(dfs)
+    combined_df.write_csv(all_names_dir / f"all_names_{association}.csv")
+    print(f"✅ Saved combined file: {all_names_dir / f'all_names_{association}.csv'}")
+
+for association, dfs in dataframes_company_names.items():
+    combined_df = pl.concat(dfs)
+    combined_df.write_csv(company_names_dir / f"company_names_{association}.csv")
+    print(f"✅ Saved combined company file: {company_names_dir / f'company_names_{association}.csv'}")
