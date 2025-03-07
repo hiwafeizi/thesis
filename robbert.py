@@ -13,7 +13,7 @@ embeddings_file = feature_store_path / "word_embeddings.json"
 variations_per_word = 1000
 batch_size = 100
 num_folds = 5
-num_epochs = 1
+num_epochs = 3
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load embeddings
