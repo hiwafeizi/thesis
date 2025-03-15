@@ -4,6 +4,24 @@ import json
 import numpy as np
 from pathlib import Path
 
+
+
+
+
+
+
+
+
+
+# the file might have problem and i am not sure if it works properly
+
+
+
+
+
+
+
+
 # Paths to saved models and embeddings
 feature_store_path = Path("data/features")
 embeddings_file = feature_store_path / "word_embeddings.json"
