@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 # Define input and output directories
-input_dir = Path("data/all_names")
-output_file = Path("data/processed/word_ratings.json")
+input_dir = Path("data/company_names")
+output_file = Path("data/processed/company_ratings.json")
 
 # Create output directory if it doesn't exist
 output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -17,7 +17,7 @@ word_ratings = {}
 
 # Process each CSV file
 for trait in traits:
-    file_path = input_dir / f"all_names_{trait}.csv"
+    file_path = input_dir / f"company_names_{trait}.csv"
     if not file_path.exists():
         print(f"⚠️ File not found: {file_path}, skipping.")
         continue
