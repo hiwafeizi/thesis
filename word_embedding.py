@@ -8,7 +8,7 @@ feature_store_path = Path("data/features")
 embeddings_file = feature_store_path / "word_embeddings.json"
 
 # Load tokenizer and model
-MODEL_NAME = "pdelobelle/robbert-v2-dutch-base"
+MODEL_NAME = "DTAI-KULeuven/robbert-2023-dutch-base"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModel.from_pretrained(MODEL_NAME)
 
