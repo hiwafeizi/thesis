@@ -19,8 +19,8 @@ words_with_x = df.index[df.index.str.lower().str.contains('x')]
 avg_with_x = df.loc[words_with_x].mean()
 
 # Compute averages for words containing at least one 'a'
-words_with_a = df.index[df.index.str.lower().str.contains('a')]
-avg_with_a = df.loc[words_with_a].mean()
+words_with_a = df.index[df.index.str.lower().str.contains('la')]
+avg_with_la = df.loc[words_with_a].mean()
 
 # Compute averages for words ending with 'a' (the "a." condition)
 words_ending_a = df.index[df.index.str.lower().str.endswith('a')]
@@ -30,7 +30,7 @@ avg_ending_a = df.loc[words_ending_a].mean()
 results_table = pd.DataFrame({
     'Overall': overall_avg,
     "Contains 'x'": avg_with_x,
-    "Contains 'a'": avg_with_a,
+    "Contains 'la'": avg_with_la,
     "Ends with 'a'": avg_ending_a
 }).round(2)
 
