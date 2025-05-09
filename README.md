@@ -65,9 +65,23 @@ All test plots and coefficient visualizations can be found in the `models/` fold
 
 Tested on **Windows 10**, with **Python 3.13.2**.
 
-Install dependencies using:
-
-```bas
+## Install dependencies using:
+```bash
 pip install -r requirements.txt
+```
+## Core packages:
+
+scikit-learn==1.4.2
+
+torch==2.7.0, transformers==4.51.3
+
+pandas, numpy, matplotlib, joblib
+
+## 🔬 Research Context
+This work explores how linguistic cues in names — from letters to embeddings — shape trait perception. All results are explained in detail in the accompanying thesis.
+
+## 📜 Citation
+If this repo helps your research, please cite the thesis or link back to this repository.
+
 
 
