@@ -4,31 +4,31 @@ import matplotlib.pyplot as plt
 # Best performing models per trait with updated smartness result
 data = {
     "Trait": ["Femininity", "Evilness", "Trustworthiness", "Smartness"],
-    "Experiment": ["In-Domain", "Few-Shot", "Few-Shot", "In-Domain"],
-    "Feature Set": ["Combined", "RobBERT", "Unigram", "Unigram"],
-    "Test R²": [0.3109, 0.2226, 0.2508, 0.2757]  # Updated value for smartness
+    "Test R²": [0.3109, 0.2226, 0.2508, 0.2757]
 }
 
 df = pd.DataFrame(data)
 
 # Plotting
-fig, ax = plt.subplots(figsize=(8, 4))
-colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
-bars = ax.bar(df["Trait"], df["Test R²"], color=colors)
+fig, ax = plt.subplots(figsize=(6, 3))
+bars = ax.bar(df["Trait"], df["Test R²"], color="#6baed6")
 
-# Add experiment and feature info as labels
-for bar, exp, feat in zip(bars, df["Experiment"], df["Feature Set"]):
+# Add R² values on top of each bar
+for bar in bars:
     height = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, height + 0.01,
-            f"{exp}\n{feat}", ha='center', va='bottom', fontsize=8)
+    ax.text(bar.get_x() + bar.get_width()/2, height + 0.005,
+            f"{height:.2f}", ha='center', va='bottom', fontsize=9)
 
-# Customizing plot
-ax.set_title("Best Test R² per Trait Across All Models", fontsize=12)
+# Style: minimal axes
 ax.set_ylabel("Test R²")
 ax.set_ylim(0, 0.35)
-ax.grid(axis="y", linestyle="--", alpha=0.5)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+ax.spines["bottom"].set_color("lightgray")
+ax.tick_params(axis='y', length=0)
+ax.tick_params(axis='x', length=0)
 
 plt.tight_layout()
-# Save the figure
-plt.savefig("best_models_per_trait.png", dpi=300, bbox_inches="tight")
+plt.savefig("best_r2_barplot.png", dpi=300, bbox_inches="tight")
 plt.show()
